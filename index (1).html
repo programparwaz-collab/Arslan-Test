@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stride & Co. — Men's & Women's Shoes</title>
+<meta name="description" content="Handpicked men's and women's shoes, from everyday sneakers to statement heels.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F4EE;
+    --card: #FFFFFF;
+    --ink: #262220;
+    --muted: #6E6660;
+    --rust: #C9633B;
+    --rust-dark: #A94F2C;
+    --men: #33473E;
+    --women: #B65C74;
+    --line: #E7E0D4;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Work Sans', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+  }
+  h1,h2,h3{
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  img, svg{ max-width: 100%; display:block; }
+  a{ color: inherit; }
+  .wrap{ max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+  header{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(247,244,238,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding: 18px 24px; }
+  .logo{ font-family:'Fraunces', serif; font-size: 22px; font-weight:600; text-decoration:none; color:var(--ink); }
+  .logo span{ color: var(--rust); }
+  .nav-links{ display:flex; gap: 28px; list-style:none; margin:0; padding:0; }
+  .nav-links a{ text-decoration:none; font-size:15px; color: var(--ink); cursor:pointer; }
+  .nav-links a:hover{ color: var(--rust); }
+  .cart-btn{
+    display:flex; align-items:center; gap:8px;
+    background: var(--ink); color: var(--bg);
+    border:none; border-radius: 100px;
+    padding: 9px 16px; font-size: 14px; cursor:pointer;
+    font-family:'Work Sans', sans-serif;
+  }
+  .cart-btn:hover{ background: var(--rust-dark); }
+  .cart-count{ background: var(--rust); color:#fff; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:12px; }
+
+  .hero{ padding: 68px 0 40px; }
+  .hero-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items:center; }
+  .eyebrow{ color: var(--rust); font-size: 14px; margin-bottom: 14px; }
+  .hero h1{ font-size: clamp(36px, 4.6vw, 56px); line-height: 1.06; }
+  .hero p{ color: var(--muted); font-size: 17px; max-width: 460px; margin-top: 18px; }
+  .btn{
+    display:inline-block; margin-top: 26px;
+    background: var(--rust); color:#fff; text-decoration:none;
+    padding: 13px 26px; border-radius: 100px; font-size:15px;
+    border:none; cursor:pointer; font-family:'Work Sans', sans-serif;
+  }
+  .btn:hover{ background: var(--rust-dark); }
+  .hero-art{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .hero-art .box{ background: var(--card); border:1px solid var(--line); border-radius: 8px; padding: 18px; }
+  .hero-art .box:nth-child(2){ margin-top: 26px; }
+
+  .section{ padding: 56px 0; }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 30px; flex-wrap:wrap; gap:16px; }
+  .section-head h2{ font-size: 30px; }
+  .section-head p{ color:var(--muted); margin-top:8px; font-size:15px; }
+
+  .filters{ display:flex; gap:10px; }
+  .filter-btn{
+    background: var(--card); border: 1px solid var(--line); color: var(--ink);
+    padding: 9px 18px; border-radius: 100px; font-size: 14px; cursor:pointer;
+    font-family:'Work Sans', sans-serif;
+  }
+  .filter-btn.active{ background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .card{
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 6px; overflow:hidden; display:flex; flex-direction:column;
+  }
+  .card-media{
+    aspect-ratio: 4/3; display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(180deg, #F2EDE3, #E9E1D2);
+    border-bottom: 1px solid var(--line); position:relative;
+  }
+  .card-media svg{ width: 68%; }
+  .tag{
+    position:absolute; top:12px; left:12px;
+    font-size: 11px; padding: 4px 10px; border-radius: 100px;
+    color:#fff; font-family:'Work Sans', sans-serif;
+  }
+  .tag.men{ background: var(--men); }
+  .tag.women{ background: var(--women); }
+  .card-body{ padding: 16px 18px 18px; display:flex; flex-direction:column; gap:6px; flex:1; }
+  .card-body h3{ font-size: 17px; font-weight:500; }
+  .card-body .desc{ color: var(--muted); font-size: 13px; flex:1; }
+  .card-foot{ display:flex; align-items:center; justify-content:space-between; margin-top: 8px; }
+  .price{ font-family:'Fraunces', serif; font-size: 17px; }
+  .add-btn{
+    background: none; border: 1px solid var(--ink); color: var(--ink);
+    border-radius: 100px; padding: 7px 14px; font-size: 13px; cursor:pointer;
+    font-family:'Work Sans', sans-serif;
+  }
+  .add-btn:hover{ background: var(--ink); color: var(--bg); }
+
+  .trust{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 12px 0 56px; }
+  .trust-item{ background: var(--card); border:1px solid var(--line); border-radius: 8px; padding: 22px; }
+  .trust-item h3{ font-size:15px; margin-bottom:6px; }
+  .trust-item p{ color:var(--muted); font-size: 13.5px; margin:0; }
+
+  .newsletter{ padding: 64px 0; text-align:center; border-top:1px solid var(--line); }
+  .newsletter h2{ font-size: 28px; margin-bottom: 12px; }
+  .newsletter p{ color:var(--muted); margin-bottom: 24px; }
+  .nl-form{ display:flex; gap:10px; max-width: 420px; margin: 0 auto; }
+  .nl-form input{
+    flex:1; padding: 13px 16px; border-radius: 100px; border: 1px solid var(--line);
+    background: var(--card); font-family:'Work Sans', sans-serif; font-size:14px;
+  }
+  .nl-form input:focus{ outline: 2px solid var(--rust); outline-offset:2px; }
+
+  footer{ border-top: 1px solid var(--line); padding: 32px 0; }
+  .foot-grid{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap: 16px; }
+  .foot-grid p{ color: var(--muted); font-size: 13.5px; margin:0; }
+
+  .overlay{
+    position: fixed; inset:0; background: rgba(38,34,32,0.4);
+    opacity:0; pointer-events:none; transition: opacity .25s ease; z-index: 90;
+  }
+  .overlay.open{ opacity:1; pointer-events:auto; }
+  .drawer{
+    position: fixed; top:0; right:0; height:100%; width: 380px; max-width: 90vw;
+    background: var(--bg); box-shadow: -6px 0 24px rgba(0,0,0,0.15);
+    transform: translateX(100%); transition: transform .3s ease;
+    z-index: 91; display:flex; flex-direction:column;
+  }
+  .drawer.open{ transform: translateX(0); }
+  .drawer-head{ display:flex; justify-content:space-between; align-items:center; padding: 22px 22px 16px; border-bottom:1px solid var(--line); }
+  .drawer-head h3{ font-size:20px; }
+  .close-btn{ background:none; border:none; font-size:22px; cursor:pointer; color:var(--ink); line-height:1; }
+  .drawer-items{ flex:1; overflow-y:auto; padding: 16px 22px; }
+  .drawer-item{ display:flex; gap:12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .drawer-item .thumb{ width:56px; height:56px; background:var(--card); border:1px solid var(--line); border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .drawer-item .thumb svg{ width:70%; }
+  .drawer-item .info{ flex:1; }
+  .drawer-item .info .name{ font-size:14px; }
+  .drawer-item .info .row{ display:flex; align-items:center; justify-content:space-between; margin-top:6px; }
+  .qty-controls{ display:flex; align-items:center; gap:8px; }
+  .qty-controls button{ width:22px; height:22px; border:1px solid var(--line); background:var(--card); border-radius:4px; cursor:pointer; font-size:13px; }
+  .empty-msg{ color: var(--muted); font-size: 14px; padding: 30px 0; text-align:center; }
+  .drawer-foot{ padding: 18px 22px 22px; border-top:1px solid var(--line); }
+  .subtotal-row{ display:flex; justify-content:space-between; margin-bottom:14px; font-size:15px; }
+  .drawer-foot .btn{ width:100%; text-align:center; margin-top:0; box-sizing:border-box; }
+  .drawer-note{ font-size:12px; color:var(--muted); margin-top:10px; text-align:center; }
+
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-art{ order:-1; }
+    .grid{ grid-template-columns: repeat(2, 1fr); }
+    .trust{ grid-template-columns: 1fr; }
+    .nav-links{ display:none; }
+  }
+  @media (max-width: 520px){
+    .grid{ grid-template-columns: 1fr; }
+    .nl-form{ flex-direction:column; }
+    .section-head{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <a href="#" class="logo">Stride <span>&</span> Co.</a>
+    <ul class="nav-links">
+      <li><a onclick="setFilter('all');return false;">Shop</a></li>
+      <li><a onclick="setFilter('men');return false;">Men</a></li>
+      <li><a onclick="setFilter('women');return false;">Women</a></li>
+    </ul>
+    <button class="cart-btn" id="cartOpenBtn">
+      Cart <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">New season, both collections</p>
+      <h1>Shoes for every step you take.</h1>
+      <p>Ten handpicked styles — five for him, five for her — from everyday sneakers to evening heels. Every pair between Rs. 5,000 and Rs. 10,000.</p>
+      <a href="#shop" class="btn">Shop the collection</a>
+    </div>
+    <div class="hero-art">
+      <div class="box" id="heroArt1"></div>
+      <div class="box" id="heroArt2"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="shop">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>The collection</h2>
+        <p>10 styles, 5 for men and 5 for women.</p>
+      </div>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="men">Men</button>
+        <button class="filter-btn" data-filter="women">Women</button>
+      </div>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="trust">
+    <div class="trust-item">
+      <h3>Free nationwide delivery</h3>
+      <p>Free shipping on every order, anywhere in the country.</p>
+    </div>
+    <div class="trust-item">
+      <h3>Cash on delivery</h3>
+      <p>Pay when your shoes arrive at your door.</p>
+    </div>
+    <div class="trust-item">
+      <h3>Easy exchanges</h3>
+      <p>Wrong size? Exchange within 7 days, no questions asked.</p>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter" id="contact">
+  <div class="wrap">
+    <h2>Get first access to new arrivals</h2>
+    <p>One email when a new drop lands. No spam, ever.</p>
+    <form class="nl-form" onsubmit="return handleSubscribe(event)">
+      <input type="email" placeholder="you@email.com" required>
+      <button type="submit" class="btn">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <p>&copy; 2026 Stride & Co. Men's and women's footwear.</p>
+    <p>hello@strideandco.example &middot; Mon–Sat 10–7</p>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Your cart</h3>
+    <button class="close-btn" id="closeDrawerBtn">&times;</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="subtotal-row"><span>Subtotal</span><strong id="subtotal">Rs. 0</strong></div>
+    <button class="btn" id="checkoutBtn">Checkout via email</button>
+    <p class="drawer-note">This opens an order email — connect a real payment provider or Cash-on-Delivery form when you're ready.</p>
+  </div>
+</div>
+
+<script>
+  const products = [
+    { id:'m1', name:"Classic Leather Oxford", price:7500, cat:'men', shape:'boot', color:'#4A3524', desc:"Polished leather, hand-stitched sole." },
+    { id:'m2', name:"Urban Runner Sneaker", price:6200, cat:'men', shape:'sneaker', color:'#33473E', desc:"Lightweight everyday sneaker." },
+    { id:'m3', name:"Canvas Low-Top", price:5400, cat:'men', shape:'sneaker', color:'#C9633B', desc:"Breathable canvas, rubber sole." },
+    { id:'m4', name:"All-Terrain Boot", price:9800, cat:'men', shape:'boot', color:'#5C4A3A', desc:"Rugged boot built for rough days." },
+    { id:'m5', name:"Suede Casual Loafer", price:8300, cat:'men', shape:'flat', color:'#7A5A3A', desc:"Slip-on suede, dressed-down comfort." },
+    { id:'w1', name:"Blush Ballet Flat", price:5200, cat:'women', shape:'flat', color:'#E3A6B4', desc:"Soft round-toe flat for all day wear." },
+    { id:'w2', name:"Everyday White Sneaker", price:6800, cat:'women', shape:'sneaker', color:'#EDE7DD', desc:"Clean minimalist sneaker, goes with anything." },
+    { id:'w3', name:"Strappy Block Heel", price:8900, cat:'women', shape:'heel', color:'#B65C74', desc:"Comfortable block heel, evening-ready." },
+    { id:'w4', name:"Suede Ankle Boot", price:9600, cat:'women', shape:'boot', color:'#8A5A62', desc:"Soft suede ankle boot with side zip." },
+    { id:'w5', name:"Woven Espadrille", price:5900, cat:'women', shape:'flat', color:'#D9A24B', desc:"Woven jute sole, summer staple." },
+  ];
+
+  function shoeSVG(shape, color){
+    const outline = '#00000022';
+    if(shape === 'sneaker'){
+      return `<svg viewBox="0 0 160 100" fill="none">
+        <path d="M10 78 C10 68 18 64 28 62 C40 60 46 52 56 46 C68 39 82 36 96 38 C112 40 122 48 132 56 C140 62 148 64 150 72 C150 78 146 82 138 82 L18 82 C13 82 10 81 10 78Z" fill="${color}"/>
+        <path d="M56 46 C62 50 70 54 82 55 C96 56 110 54 122 50" stroke="${outline}" stroke-width="2" fill="none"/>
+        <path d="M14 80 L146 80" stroke="#ffffff55" stroke-width="4"/>
+      </svg>`;
+    }
+    if(shape === 'boot'){
+      return `<svg viewBox="0 0 160 110" fill="none">
+        <path d="M46 20 L100 20 C104 20 106 24 106 28 L106 56 C120 60 138 66 146 76 C150 82 148 90 138 90 L36 90 C30 90 26 86 26 80 L26 30 C26 24 32 20 46 20Z" fill="${color}"/>
+        <rect x="46" y="8" width="54" height="16" rx="4" fill="${color}"/>
+        <path d="M26 82 L148 82" stroke="#ffffff55" stroke-width="4"/>
+      </svg>`;
+    }
+    if(shape === 'heel'){
+      return `<svg viewBox="0 0 160 110" fill="none">
+        <path d="M34 60 C34 50 44 44 56 42 C72 39 86 32 96 24 C102 20 110 20 112 26 C114 34 110 44 118 52 C126 60 132 66 132 74 L132 78 C132 82 128 85 122 85 L46 85 C38 85 34 80 34 74 Z" fill="${color}"/>
+        <path d="M118 74 L128 100 L112 100 L116 76Z" fill="${color}"/>
+      </svg>`;
+    }
+    return `<svg viewBox="0 0 160 90" fill="none">
+      <path d="M18 62 C18 50 30 44 44 42 C62 40 76 30 90 24 C104 18 122 20 132 30 C140 38 138 48 144 56 C148 62 146 70 136 70 L28 70 C20 70 18 66 18 62Z" fill="${color}"/>
+      <path d="M22 68 L142 68" stroke="#ffffff55" stroke-width="4"/>
+    </svg>`;
+  }
+
+  let cart = {};
+  try { cart = JSON.parse(localStorage.getItem('sc_cart') || '{}'); } catch(e) { cart = {}; }
+  function saveCart(){ try { localStorage.setItem('sc_cart', JSON.stringify(cart)); } catch(e) {} }
+
+  let currentFilter = 'all';
+
+  function renderGrid(){
+    const grid = document.getElementById('productGrid');
+    const list = products.filter(p => currentFilter === 'all' || p.cat === currentFilter);
+    grid.innerHTML = list.map(p => `
+      <div class="card">
+        <div class="card-media">
+          <span class="tag ${p.cat}">${p.cat === 'men' ? "Men's" : "Women's"}</span>
+          ${shoeSVG(p.shape, p.color)}
+        </div>
+        <div class="card-body">
+          <h3>${p.name}</h3>
+          <p class="desc">${p.desc}</p>
+          <div class="card-foot">
+            <span class="price">Rs. ${p.price.toLocaleString()}</span>
+            <button class="add-btn" data-id="${p.id}">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    grid.querySelectorAll('.add-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        cart[id] = (cart[id] || 0) + 1;
+        saveCart();
+        renderCart();
+        openDrawer();
+      });
+    });
+  }
+
+  function setFilter(f){
+    currentFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+    renderGrid();
+    document.getElementById('shop').scrollIntoView({behavior:'smooth'});
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+  });
+
+  function renderCart(){
+    const items = Object.entries(cart).filter(([_, qty]) => qty > 0);
+    const countEl = document.getElementById('cartCount');
+    countEl.textContent = items.reduce((sum, [_, qty]) => sum + qty, 0);
+
+    const itemsEl = document.getElementById('drawerItems');
+    if(items.length === 0){
+      itemsEl.innerHTML = '<p class="empty-msg">Your cart is empty.</p>';
+    } else {
+      itemsEl.innerHTML = items.map(([id, qty]) => {
+        const p = products.find(x => x.id === id);
+        return `
+          <div class="drawer-item">
+            <div class="thumb">${shoeSVG(p.shape, p.color)}</div>
+            <div class="info">
+              <div class="name">${p.name}</div>
+              <div class="row">
+                <div class="qty-controls">
+                  <button data-id="${id}" data-action="dec">&minus;</button>
+                  <span>${qty}</span>
+                  <button data-id="${id}" data-action="inc">+</button>
+                </div>
+                <span>Rs. ${(p.price * qty).toLocaleString()}</span>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    const subtotal = items.reduce((sum, [id, qty]) => sum + products.find(x => x.id === id).price * qty, 0);
+    document.getElementById('subtotal').textContent = 'Rs. ' + subtotal.toLocaleString();
+
+    itemsEl.querySelectorAll('button[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        cart[id] = (cart[id] || 0) + (btn.dataset.action === 'inc' ? 1 : -1);
+        if(cart[id] <= 0) delete cart[id];
+        saveCart();
+        renderCart();
+      });
+    });
+  }
+
+  const overlay = document.getElementById('overlay');
+  const drawer = document.getElementById('drawer');
+  function openDrawer(){ overlay.classList.add('open'); drawer.classList.add('open'); }
+  function closeDrawer(){ overlay.classList.remove('open'); drawer.classList.remove('open'); }
+  document.getElementById('cartOpenBtn').addEventListener('click', openDrawer);
+  document.getElementById('closeDrawerBtn').addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  document.getElementById('checkoutBtn').addEventListener('click', () => {
+    const items = Object.entries(cart).filter(([_, qty]) => qty > 0);
+    if(items.length === 0){ alert('Your cart is empty.'); return; }
+    const lines = items.map(([id, qty]) => {
+      const p = products.find(x => x.id === id);
+      return `${qty} x ${p.name} - Rs. ${(p.price * qty).toLocaleString()}`;
+    }).join('%0D%0A');
+    const subtotal = items.reduce((sum, [id, qty]) => sum + products.find(x => x.id === id).price * qty, 0);
+    window.location.href = `mailto:hello@strideandco.example?subject=New order from website&body=${lines}%0D%0A%0D%0ASubtotal: Rs. ${subtotal.toLocaleString()}`;
+  });
+
+  function handleSubscribe(e){
+    e.preventDefault();
+    alert('Thanks for subscribing! (Connect a real email tool like Mailchimp when you are ready.)');
+    e.target.reset();
+    return false;
+  }
+
+  document.getElementById('heroArt1').innerHTML = shoeSVG('sneaker', '#33473E');
+  document.getElementById('heroArt2').innerHTML = shoeSVG('heel', '#B65C74');
+
+  renderGrid();
+  renderCart();
+</script>
+
+</body>
+</html>
